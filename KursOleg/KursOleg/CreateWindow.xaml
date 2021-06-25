@@ -1,0 +1,41 @@
+﻿<Window x:Class="KursOleg.CreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KursOleg"
+        mc:Ignorable="d"
+        Title="{Binding WindowName}" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image 
+            
+            Height="280" 
+            Width="280" 
+            Source="{Binding CurrentService.ImagePreview}" />
+
+        <StackPanel Margin="5"  Grid.Column="1">
+            <Label Content="Услуга"/>
+            <TextBox Text="{Binding CurrentService.Title}"/>
+            <Label Content="Цена"/>
+            <TextBox Text="{Binding CurrentService.Price}"/>
+
+            <Label Content="Наряд человека"/>
+            <ComboBox
+                
+                ItemsSource="{Binding WorkList}"
+                SelectedItem="{Binding CurrentService.NaryadOleg}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Worker}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Margin="5"  Click="GetImageButton_Click">Получить картинку</Button>
+            <Button Margin="5"  Click="SaveButton_Click">Сохранить</Button>
+        </StackPanel>
+    </Grid>
+</Window>

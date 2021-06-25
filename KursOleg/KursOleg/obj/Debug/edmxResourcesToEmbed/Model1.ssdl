@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище inetprovider_kpModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="NaryadOleg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Adress" Type="nvarchar" MaxLength="155" />
+    <Property Name="number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Worker" Type="nvarchar" MaxLength="255" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceOleg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar" MaxLength="50" />
+    <Property Name="NaryadId" Type="int" />
+  </EntityType>
+  <Association Name="FK_ServiceOleg_NaryadOleg">
+    <End Role="NaryadOleg" Type="Self.NaryadOleg" Multiplicity="0..1" />
+    <End Role="ServiceOleg" Type="Self.ServiceOleg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NaryadOleg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceOleg">
+        <PropertyRef Name="NaryadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище inetprovider_kpModelContainer">
+    <EntitySet Name="NaryadOleg" EntityType="Self.NaryadOleg" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceOleg" EntityType="Self.ServiceOleg" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ServiceOleg_NaryadOleg" Association="Self.FK_ServiceOleg_NaryadOleg">
+      <End Role="NaryadOleg" EntitySet="NaryadOleg" />
+      <End Role="ServiceOleg" EntitySet="ServiceOleg" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

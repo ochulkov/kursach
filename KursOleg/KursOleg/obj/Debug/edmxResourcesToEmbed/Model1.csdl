@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="inetprovider_kpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NaryadOleg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Adress" Type="String" MaxLength="155" FixedLength="false" Unicode="true" />
+    <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Worker" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="ServiceOleg" Relationship="Self.FK_ServiceOleg_NaryadOleg" FromRole="NaryadOleg" ToRole="ServiceOleg" />
+  </EntityType>
+  <EntityType Name="ServiceOleg">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NaryadId" Type="Int32" />
+    <NavigationProperty Name="NaryadOleg" Relationship="Self.FK_ServiceOleg_NaryadOleg" FromRole="ServiceOleg" ToRole="NaryadOleg" />
+  </EntityType>
+  <Association Name="FK_ServiceOleg_NaryadOleg">
+    <End Role="NaryadOleg" Type="Self.NaryadOleg" Multiplicity="0..1" />
+    <End Role="ServiceOleg" Type="Self.ServiceOleg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NaryadOleg">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceOleg">
+        <PropertyRef Name="NaryadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="inetprovider_kpEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="NaryadOleg" EntityType="Self.NaryadOleg" />
+    <EntitySet Name="ServiceOleg" EntityType="Self.ServiceOleg" />
+    <AssociationSet Name="FK_ServiceOleg_NaryadOleg" Association="Self.FK_ServiceOleg_NaryadOleg">
+      <End Role="NaryadOleg" EntitySet="NaryadOleg" />
+      <End Role="ServiceOleg" EntitySet="ServiceOleg" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
